@@ -1,12 +1,12 @@
 import core.Line;
 import core.Station;
 import junit.framework.TestCase;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class RouteCalculatorTest extends TestCase {
     List<Station> route;
+    RouteCalculator testCalculator;
 
     @Override
     public void setUp() throws Exception {
@@ -23,12 +23,27 @@ public class RouteCalculatorTest extends TestCase {
         route.add(new Station("Six", line3));
         route.add(new Station("Seven", line3));
         route.add(new Station("Eight", line3));
+
+        testCalculator = new RouteCalculator(new StationIndex());
     }
 
-    public void testcalCulateDuration(){
+    public void testCalCulateDuration() {
         double actual = RouteCalculator.calculateDuration(route);
         double expected = 19.5;
         assertEquals(expected, actual);
+    }
+
+    public void testGetShortestRoute(){
+        List<Station> actual = testCalculator.getShortestRoute(route.get(0), route.get(4));
+        List<Station> expected = new ArrayList<Station>(){{
+            add(route.get(0));
+            add(route.get(1));
+            add(route.get(2));
+            add(route.get(3));
+            add(route.get(4));
+        }};
+        assertEquals(expected, actual);
+
     }
 
 }
