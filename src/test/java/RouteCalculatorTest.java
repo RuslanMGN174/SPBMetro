@@ -2,8 +2,11 @@ import core.Line;
 import core.Station;
 import junit.framework.TestCase;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class RouteCalculatorTest extends TestCase {
     List<Station> route;
@@ -11,6 +14,7 @@ public class RouteCalculatorTest extends TestCase {
     Line line1;
     Line line2;
     Line line3;
+    StationIndex index;
 
 
     @Override
@@ -50,14 +54,41 @@ public class RouteCalculatorTest extends TestCase {
             add(route.get(5));
         }};
 
-        StationIndex index = new StationIndex();
+        index = new StationIndex();
         index.addConnection(connection1);
         index.addConnection(connection2);
 
         testCalculator = new RouteCalculator(index);
     }
 
-    public void testCalCulateDuration() {
+    public void testGetRouteWithTwoConnections() {
+        Method privateGetRouteWithTwoConnections;
+        List<Station> list = null;
+        try {
+            privateGetRouteWithTwoConnections = RouteCalculator.class.getDeclaredMethod("getRouteWithTwoConnections", Station.class, Station.class);
+            privateGetRouteWithTwoConnections.setAccessible(true);
+            list = (List<Station>) privateGetRouteWithTwoConnections.invoke(new RouteCalculator(index), route.get(0), route.get(7));
+
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        List<Station> actual = list;
+        List<Station> expected = new ArrayList<Station>() {{
+            add(route.get(0));
+            add(route.get(1));
+            add(route.get(2));
+            add(route.get(3));
+            add(route.get(4));
+            add(route.get(5));
+            add(route.get(6));
+            add(route.get(7));
+        }};
+        assertEquals(expected, actual);
+
+    }
+
+    public void testCalculateDuration() {
         double actual = RouteCalculator.calculateDuration(route);
         double expected = 19.5;
         assertEquals(expected, actual);
@@ -103,6 +134,8 @@ public class RouteCalculatorTest extends TestCase {
             add(route.get(3));
             add(route.get(4));
             add(route.get(5));
+            add(route.get(6));
+            add(route.get(7));
         }};
         assertEquals(expected, actual);
     }
