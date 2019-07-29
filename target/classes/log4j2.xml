@@ -5,18 +5,34 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="MyFile" fileName="logs/app.log" immediateFlush="true">
+        <File name="MyFile1" fileName="logs/app.log" immediateFlush="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <File name="MyFile2" fileName="logs/app2.log" immediateFlush="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <File name="MyFile3" fileName="logs/app3.log" immediateFlush="true">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
 
     </appenders>
     <loggers>
 
-        <!--<logger name="filelogger" level="info">-->
-            <!--<appender-ref ref="MyFile"/>-->
-        <!--</logger>-->
+        <logger name="filelogger1" level="info">
+            <appender-ref ref="MyFile1"/>
+        </logger>
 
-        <root level="error">
+        <logger name="filelogger2" level="info">
+            <appender-ref ref="MyFile2"/>
+        </logger>
+
+        <logger name="filelogger3" level="info">
+            <appender-ref ref="MyFile3"/>
+        </logger>
+
+        <root level="info">
             <appender-ref ref="MyFile" level="info"/>
         </root>
     </loggers>

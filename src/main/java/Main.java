@@ -15,15 +15,19 @@ import java.util.Scanner;
 
 public class Main {
     private static Logger logger;
+    private static Logger logger2;
+    private static Logger logger3;
 
-    private static String dataFile = "src/main_/resources/map.json";
+    private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
 
     private static StationIndex stationIndex;
 
     public static void main(String[] args) {
         RouteCalculator calculator = getRouteCalculator();
-        logger = LogManager.getRootLogger();
+        logger = LogManager.getLogger("filelogger1");
+        logger2 = LogManager.getLogger("filelogger2");
+        logger3 = LogManager.getLogger("filelogger3");
 
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
@@ -72,7 +76,7 @@ public class Main {
             if (station != null) {
                 return station;
             }
-            logger.info("Ошибочно введенная станция: " + line);
+            logger2.info("Ошибочно введенная станция: " + line);
             System.out.println("Станция не найдена :(");
         }
     }
@@ -92,7 +96,7 @@ public class Main {
             JSONArray connectionsArray = (JSONArray) jsonData.get("connections");
             parseConnections(connectionsArray);
         } catch (ParseException ex) {
-            logger.error(ex.getMessage(), ex);
+            logger3.error(ex.getMessage(), ex);
             ex.printStackTrace();
         }
     }
@@ -111,7 +115,7 @@ public class Main {
                 Station station = stationIndex.getStation(stationName, lineNumber);
                 if (station == null) {
 
-                    logger.info("core.Station " +
+                    logger3.info("core.Station " +
                             stationName + " on line " + lineNumber + " not found");
 
 //                    throw new IllegalArgumentException("core.Station " +
@@ -156,7 +160,7 @@ public class Main {
             List<String> lines = Files.readAllLines(Paths.get(dataFile));
             lines.forEach(line -> builder.append(line));
         } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
+            logger3.error(ex.getMessage(), ex);
         }
         return builder.toString();
     }
