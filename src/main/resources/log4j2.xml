@@ -6,15 +6,15 @@
         </Console>
 
         <File name="MyFile1" fileName="logs/app.log" immediateFlush="true">
-            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
         </File>
 
         <File name="MyFile2" fileName="logs/app2.log" immediateFlush="true">
-            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
         </File>
 
         <File name="MyFile3" fileName="logs/app3.log" immediateFlush="true">
-            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
         </File>
 
     </appenders>
@@ -24,16 +24,16 @@
             <appender-ref ref="MyFile1"/>
         </logger>
 
-        <logger name="filelogger2" level="info">
+        <logger name="filelogger2" level="warn">
             <appender-ref ref="MyFile2"/>
         </logger>
 
-        <logger name="filelogger3" level="info">
+        <logger name="filelogger3" level="error">
             <appender-ref ref="MyFile3"/>
         </logger>
 
-        <root level="info">
-            <appender-ref ref="MyFile" level="info"/>
+        <root level="fatal">
+            <appender-ref ref="MyFile1" level="fatal"/>
         </root>
     </loggers>
 </configuration>

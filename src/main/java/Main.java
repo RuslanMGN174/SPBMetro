@@ -76,7 +76,7 @@ public class Main {
             if (station != null) {
                 return station;
             }
-            logger2.info("Ошибочно введенная станция: " + line);
+            logger2.warn("Ошибочно введенная станция: " + line);
             System.out.println("Станция не найдена :(");
         }
     }
@@ -115,7 +115,7 @@ public class Main {
                 Station station = stationIndex.getStation(stationName, lineNumber);
                 if (station == null) {
 
-                    logger3.info("core.Station " +
+                    logger3.error("core.Station " +
                             stationName + " on line " + lineNumber + " not found");
 
 //                    throw new IllegalArgumentException("core.Station " +
